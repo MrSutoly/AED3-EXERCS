@@ -2,6 +2,7 @@
  // João Pedro Gomes - 2651122
  // Pedro Luca Lacerda Alves - 2651416
 #include <stdio.h>
+#include <stdlib.h>
 
 /* Questão 1: Dividimos por 10 para pegar o ultimo numero ( resto da divisão)
  e invertemos a ordem numérica utilizando as instâncias da recursão
