@@ -53,6 +53,7 @@ int main(){
 
 
 
-    free(v);
+    free(v1);
+    free(v2);
     return 0;
 }
