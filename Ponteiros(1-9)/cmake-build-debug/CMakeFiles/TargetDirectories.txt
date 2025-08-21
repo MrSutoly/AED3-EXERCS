@@ -1,0 +1,3 @@
+C:/Users/Pichau/CLionProjects/Ponteiros(1-9)/cmake-build-debug/CMakeFiles/Ponteiros_1_9_.dir
+C:/Users/Pichau/CLionProjects/Ponteiros(1-9)/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Pichau/CLionProjects/Ponteiros(1-9)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
