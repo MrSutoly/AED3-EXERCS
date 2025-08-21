@@ -15,12 +15,12 @@ int main() {
     {
         int y, *p, x;
         y = 0;
-        p = &y;
-        x = *p;
-        x = 4;
-        (*p)++;
-        x--;
-        (*p) += x;
+        p = &y; //ponteiro p recebe o endereço de y
+        x = *p; // x recebe o valor do ponteiro que é zero
+        x = 4; // x recebe 4
+        (*p)++;// soma 1 ao valor de y indo de 0 para 1
+        x--; //diminui 1 no valor indo de 4 para 3
+        (*p) += x; // soma o valor de p com o x, 1 + 3 = 4
         printf("\nQuestao 2 -> y = %d\n", y);
     }
 
