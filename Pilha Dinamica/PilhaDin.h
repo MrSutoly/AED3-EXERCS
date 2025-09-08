@@ -28,6 +28,9 @@ Pilha* pilha_copia(Pilha* p);
 int Estatisticas_Pilha(Pilha* pi, struct aluno* maior, struct aluno* menor, float* media_geral);
 int comparar_Pilhas(Pilha* pi1, Pilha* pi2);
 int contador_pares_impares_Pilha(Pilha* pi, int* pares, int* impares);
+void desempilha_n(int n, Pilha* pi);
+void pop2(Pilha* pi);
+int push2(Pilha* pi, struct aluno al1, struct aluno al2);
 
 // ================= Pilha de caracteres =================
 
@@ -45,5 +48,6 @@ int remove_PilhaChar(PilhaChar* pi);
 int PilhaChar_vazia(PilhaChar* pi);
 int consulta_topo_PilhaChar(PilhaChar* pi, char* c);
 PilhaChar* pilha_copiaChar(PilhaChar* p);
+int verifica(char* str);
 
 #endif

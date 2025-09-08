@@ -5,109 +5,154 @@
 #include "PilhaDin.h"
 
 int main() {
-    // ------------------ Pilha de alunos ------------------
-    struct aluno a[4] = {
-        {2,"Andre",9.5,7.8,8.5},
-        {4,"Ricardo",7.5,8.7,6.8},
-        {1,"Bianca",9.7,6.7,8.4},
-        {3,"Ana",5.7,6.1,7.4}
-    };
+    Pilha* pi = NULL;
+    PilhaChar* piChar = NULL;
+    struct aluno al;
+    int opcao, pares, impares, n;
+    char linha[1000], c;
 
-    Pilha* pi = cria_Pilha();
-    for (int i = 0; i < 4; i++)
-        insere_Pilha(pi, a[i]);
+    do {
+        menu();
+        scanf("%d", &opcao);
+        getchar();
 
-    printf("=== Pilha original ===\n");
-    imprime_Pilha(pi);
+        switch(opcao) {
+            case 1: // Inicializa pilha
+                if(pi != NULL) libera_Pilha(pi);
+                pi = cria_Pilha();
+                printf("Pilha inicializada.\n");
+                break;
 
-    Pilha* copiaAlunos = pilha_copia(pi);
+            case 2: // Verifica se pilha vazia
+                printf(Pilha_vazia(pi) ? "Pilha vazia.\n" : "Pilha nao esta vazia.\n");
+                break;
 
-    printf("\n=== Pilha copiada ===\n");
-    imprime_Pilha(copiaAlunos);
+            case 3: // Verifica se pilha cheia
+                printf(Pilha_cheia(pi) ? "Pilha cheia.\n" : "Pilha nao esta cheia.\n");
+                break;
 
-    struct aluno al_maior, al_menor;
-    float media_geral;
-    if (Estatisticas_Pilha(pi, &al_maior, &al_menor, &media_geral)) {
-        printf("\n--- Estatisticas da Pilha ---\n");
-        printf("Aluno com MAIOR media: %s (%.2f)\n",
-               al_maior.nome,
-               (al_maior.n1 + al_maior.n2 + al_maior.n3) / 3.0);
-        printf("Aluno com MENOR media: %s (%.2f)\n",
-               al_menor.nome,
-               (al_menor.n1 + al_menor.n2 + al_menor.n3) / 3.0);
-        printf("Media geral da pilha: %.2f\n", media_geral);
-    }
+            case 4: // Empilha elemento
+                printf("Digite matricula: ");
+                scanf("%d", &al.matricula);
+                getchar();
+                printf("Digite nome: ");
+                fgets(al.nome, 30, stdin);
+                al.nome[strcspn(al.nome, "\n")] = 0;
+                printf("Digite 3 notas: ");
+                scanf("%f %f %f", &al.n1, &al.n2, &al.n3);
+                insere_Pilha(pi, al);
+                printf("Aluno inserido.\n");
+                break;
 
-    printf("\n=== Comparacao de Pilhas ===\n");
-    if (comparar_Pilhas(pi, copiaAlunos))
-        printf("As pilhas sao iguais!\n");
-    else
-        printf("As pilhas sao diferentes!\n");
+            case 5: // Desempilha elemento
+                printf("Deseja remover quantos elementos? ");
+                scanf("%d", &n);
+                desempilha_n(n-1, pi); // desempilha_n desempilha n+1, ajustei
+                printf("%d elementos removidos.\n", n);
+                break;
 
-    int pares, impares;
-    contador_pares_impares_Pilha(pi, &pares, &impares);
-    printf("Quantidade de matriculas pares: %d\n", pares);
-    printf("Quantidade de matriculas impares: %d\n", impares);
+            case 6: // Lê topo da pilha
+                if(consulta_topo_Pilha(pi, &al))
+                    printf("Topo da pilha: %d - %s\n", al.matricula, al.nome);
+                else
+                    printf("Pilha vazia.\n");
+                break;
+
+            case 7: // Estatísticas da pilha
+                if(Estatisticas_Pilha(pi, &al, &al, &al.n1)) {
+                    struct aluno maior, menor; float media;
+                    Estatisticas_Pilha(pi, &maior, &menor, &media);
+                    printf("Maior media: %s\nMenor media: %s\nMedia geral: %.2f\n",
+                           maior.nome, menor.nome, media);
+                } else printf("Pilha vazia.\n");
+                break;
+
+            case 8: // Contar pares e impares
+                contador_pares_impares_Pilha(pi, &pares, &impares);
+                printf("Pares: %d, Impares: %d\n", pares, impares);
+                break;
+
+            case 9: // Copiar pilha
+                {
+                    Pilha* copia = pilha_copia(pi);
+                    printf("Pilha copiada:\n");
+                    imprime_Pilha(copia);
+                    libera_Pilha(copia);
+                }
+                break;
+
+            case 10: // Comparar pilhas
+                {
+                    Pilha* copia = pilha_copia(pi);
+                    printf(comparar_Pilhas(pi, copia) ? "Pilha iguais\n" : "Pilha diferentes\n");
+                    libera_Pilha(copia);
+                }
+                break;
+
+            case 11: // Push2
+                {
+                    struct aluno al1, al2;
+                    printf("Aluno 1: matricula, nome, notas: ");
+                    scanf("%d", &al1.matricula); getchar();
+                    fgets(al1.nome,30,stdin); al1.nome[strcspn(al1.nome,"\n")] = 0;
+                    scanf("%f %f %f", &al1.n1, &al1.n2, &al1.n3);
+
+                    printf("Aluno 2: matricula, nome, notas: ");
+                    scanf("%d", &al2.matricula); getchar();
+                    fgets(al2.nome,30,stdin); al2.nome[strcspn(al2.nome,"\n")] = 0;
+                    scanf("%f %f %f", &al2.n1, &al2.n2, &al2.n3);
+
+                    push2(pi, al1, al2);
+                }
+                break;
+
+            case 12: // Pop2
+                pop2(pi);
+                printf("Dois elementos removidos do topo.\n");
+                break;
+
+            case 13: // Verifica string xCy
+                printf("Digite sequencia do tipo xCy: ");
+                fgets(linha, sizeof(linha), stdin);
+                linha[strcspn(linha,"\n")] = 0;
+                printf(verifica(linha) ? "Valida!\n" : "Invalida!\n");
+                break;
+
+            case 14: // Pilha de caracteres (palindromo)
+                if(piChar != NULL) libera_PilhaChar(piChar);
+                piChar = cria_PilhaChar();
+                printf("Digite string: ");
+                fgets(linha, sizeof(linha), stdin);
+                linha[strcspn(linha,"\n")] = 0;
+                for(int i=0; linha[i]; i++)
+                    if(!isspace(linha[i]) && linha[i]!='.')
+                        insere_PilhaChar(piChar, tolower(linha[i]));
+                {
+                    PilhaChar* copiaChar = pilha_copiaChar(piChar);
+                    int pal = 1, len = 0;
+                    char str[1000];
+                    while(!PilhaChar_vazia(copiaChar)) {
+                        consulta_topo_PilhaChar(copiaChar, &str[len++]);
+                        remove_PilhaChar(copiaChar);
+                    }
+                    libera_PilhaChar(copiaChar);
+                    for(int i=0;i<len/2;i++)
+                        if(str[i]!=str[len-1-i]) pal=0;
+                    printf(pal?"E palindromo!\n":"Nao e palindromo.\n");
+                }
+                break;
+
+            case 0:
+                printf("Saindo...\n");
+                break;
+
+            default:
+                printf("Opcao invalida!\n");
+        }
+    } while(opcao != 0);
 
     libera_Pilha(pi);
-    libera_Pilha(copiaAlunos);
-
-    // ------------------ Pilha de caracteres ------------------
-    PilhaChar* piChar = cria_PilhaChar();
-    char c;
-
-    char linha[1000];
-    printf("\nDigite uma sequencia de caracteres: ");
-    fgets(linha, sizeof(linha), stdin); // lê a linha inteira
-
-    // Inserir na pilha ignorando espaços e pontos, e convertendo para minúscula
-    for (int i = 0; linha[i] != '\0' && linha[i] != '\n'; i++) {
-        if (!isspace(linha[i]) && linha[i] != '.')
-            insere_PilhaChar(piChar, tolower(linha[i]));
-    }
-
-
-    // Imprimir invertido
-    printf("Texto invertido: ");
-    PilhaChar* copiaChar = cria_PilhaChar();
-    char temp;
-    while(!PilhaChar_vazia(piChar)) {
-        consulta_topo_PilhaChar(piChar, &temp);
-        printf("%c", temp);
-        insere_PilhaChar(copiaChar, temp);
-        remove_PilhaChar(piChar);
-    }
-    printf("\n");
-
-    // Restaurar original
-    while(!PilhaChar_vazia(copiaChar)) {
-        consulta_topo_PilhaChar(copiaChar, &temp);
-        insere_PilhaChar(piChar, temp);
-        remove_PilhaChar(copiaChar);
-    }
-    libera_PilhaChar(copiaChar);
-
-    // Verificar palíndromo
-    int palindromo = 1;
-    int n = 0;
-    char str[1000];
-    PilhaChar* tempPi = pilha_copiaChar(piChar); // função similar à pilha_copia
-    while(!PilhaChar_vazia(tempPi)) {
-        consulta_topo_PilhaChar(tempPi, &str[n++]);
-        remove_PilhaChar(tempPi);
-    }
-    libera_PilhaChar(tempPi);
-
-    for(int i=0; i<n/2; i++) {
-        if(str[i] != str[n-1-i]) {
-            palindromo = 0;
-            break;
-        }
-    }
-    printf(palindromo ? "E palindromo!\n" : "Nao e palindromo.\n");
-
-    libera_PilhaChar(piChar);
+    if(piChar != NULL) libera_PilhaChar(piChar);
 
     return 0;
 }
-

@@ -1,9 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "PilhaDin.h" //inclui os Prot�tipos
+#include "PilhaDin.h" 
 
-//Defini��o do tipo Pilha
+void menu() {
+    printf("\n=== MENU PILHA ===\n");
+    printf("1 - Inicializa pilha\n");
+    printf("2 - Verifica se a pilha e vazia\n");
+    printf("3 - Verifica se a pilha e cheia\n");
+    printf("4 - Empilha elemento na pilha\n");
+    printf("5 - Desempilha elemento da pilha\n");
+    printf("6 - Le topo da pilha\n");
+    printf("7 - Converte numero decimal em binario\n");
+    printf("8 - Sair\n");
+    printf("Escolha uma opcao: ");
+}
+
 struct elemento{
     struct aluno dados;
     struct elemento *prox;
@@ -50,6 +62,83 @@ int insere_Pilha(Pilha* pi, struct aluno al){
     *pi = no;
     return 1;
 }
+
+void desempilha_n(int n, Pilha* pi) {
+    for (int i = 0; i <= n; i++) {
+        if(pi != NULL) {
+            Elem* no = *pi;
+            *pi = (*pi)->prox;
+            free(no);
+        }
+    }
+}
+
+void pop2(Pilha* pi) {
+    for (int i = 0; i <= 2; i++) {
+        if(pi != NULL) {
+            Elem* no = *pi;
+            *pi = (*pi)->prox;
+            free(no);
+        }
+    }
+}
+
+int push2(Pilha* pi, struct aluno al1, struct aluno al2) {
+    if(pi == NULL) return 0;
+    Elem* no = (Elem*) malloc(sizeof(Elem));
+    if(no == NULL) return 0;
+    no->dados = al1;
+    no->prox = (*pi);
+    *pi = no;
+
+    no = (Elem*) malloc(sizeof(Elem));
+    if(no == NULL) return 0;
+    no->dados = al2;
+    no->prox = (*pi);
+    *pi = no;
+    printf("2 Usuários cadastrados \n");
+
+    return 1;
+}
+
+typedef struct carac {
+    char dado;
+    struct carac* prox;
+} Carac;
+
+int verifica(char* str) {
+    Carac* topo = NULL;
+    int i = 0;
+
+    while(str[i] != '\0' && str[i] != 'C'){
+        if(str[i] == 'A' || str[i] == 'B'){
+            Carac* novo = (Carac*) malloc(sizeof(Carac));
+            novo->dado = str[i];
+            novo->prox = topo;
+            topo = novo;
+        }
+        i++;
+    }
+
+    if(str[i] != 'C') return 0;
+    i++;
+
+    while(str[i] != '\0'){
+        if(topo == NULL) return 0;
+        char topoPilha = topo->dado;
+        Carac* temp = topo;
+        topo = topo->prox;
+        free(temp);
+
+        if(str[i] != topoPilha){
+            return 0;
+        }
+        i++;
+    }
+
+    return (topo == NULL);
+}
+
 
 int remove_Pilha(Pilha* pi){
     if(pi == NULL)
@@ -313,4 +402,3 @@ PilhaChar* pilha_copiaChar(PilhaChar* p) {
     libera_PilhaChar(aux);
     return copia;
 }
-
