@@ -4,6 +4,19 @@
 #include <ctype.h>
 #include "PilhaDin.h"
 
+void menu() {
+    printf("\n=== MENU PILHA ===\n");
+    printf("1 - Inicializa pilha\n");
+    printf("2 - Verifica se a pilha e vazia\n");
+    printf("3 - Verifica se a pilha e cheia\n");
+    printf("4 - Empilha elemento na pilha\n");
+    printf("5 - Desempilha elemento da pilha\n");
+    printf("6 - Le topo da pilha\n");
+    printf("7 - Converte numero decimal em binario\n");
+    printf("8 - Sair\n");
+    printf("Escolha uma opcao: ");
+}
+
 int main() {
     Pilha* pi = NULL;
     PilhaChar* piChar = NULL;
