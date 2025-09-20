@@ -75,5 +75,21 @@ int main() {
     printf("Fila C (combinada e ordenada): ");
     imprimeFila(&fC);
 
+    printf("\n--- Testando a funcao Reverse ---\n");
+    Fila f_teste;
+    inicializaFila(&f_teste);
+    enfileira(&f_teste, 100);
+    enfileira(&f_teste, 200);
+    enfileira(&f_teste, 300);
+    enfileira(&f_teste, 400);
+    
+    printf("Fila antes do Reverse: ");
+    imprimeFila(&f_teste);
+    
+    Reverse(&f_teste);
+    
+    printf("Fila depois do Reverse: ");
+    imprimeFila(&f_teste);
+    
     return 0;
 }
