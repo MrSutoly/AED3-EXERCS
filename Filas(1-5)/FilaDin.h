@@ -49,6 +49,8 @@ void imprimeFila(Fila *f);
 
 int separa(Fila *f1, Fila *f2, int n);
 
+int separaEFilaEmOrdem(Fila *f1, Fila *f2, Fila *f3);
+
 void inicializaFilaDeFilas(FilaDeFilas *ff);
 void enfileiraFila(FilaDeFilas *ff, Fila *f);
 
