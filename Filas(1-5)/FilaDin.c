@@ -174,43 +174,68 @@ void listarPrimeiroAviao(Fila *f) {
  * Retorna 1 se a operação for bem-sucedida, 0 caso contrário.
  */
 int separaEFilaEmOrdem(Fila *f1, Fila *f2, Fila *f3) {
-    // Verifica se as filas de entrada e a de saída são válidas
-    if (f1 == NULL || f2 == NULL || f3 == NULL) {
-        return 0;
-    }
+    // Verifica se as filas de entrada e a de saída são válidas
+    if (f1 == NULL || f2 == NULL || f3 == NULL) {
+        return 0;
+    }
 
-    // Se as duas filas de origem estiverem vazias, não há o que fazer
-    if (filaVazia(f1) && filaVazia(f2)) {
-        printf("Ambas as filas estao vazias\n");
-        return 0;
-    }
+    // Se as duas filas de origem estiverem vazias, não há o que fazer
+    if (filaVazia(f1) && filaVazia(f2)) {
+        printf("Ambas as filas estao vazias\n");
+        return 0;
+    }
 
-    // Pega os primeiros nós de cada fila
-    No *no1 = f1->frente;
-    No *no2 = f2->frente;
+    // Pega os primeiros nós de cada fila
+    No *no1 = f1->frente;
+    No *no2 = f2->frente;
 
-    // Percorre as duas filas, comparando e enfileirando o menor elemento na fila de destino
-    while (no1 != NULL && no2 != NULL) {
-        if (no1->matricula < no2->matricula) {
-            enfileira(f3, no1->matricula);
-            no1 = no1->prox;
-        } else {
-            enfileira(f3, no2->matricula);
-            no2 = no2->prox;
-        }
-    }
+    // Percorre as duas filas, comparando e enfileirando o menor elemento na fila de destino
+    while (no1 != NULL && no2 != NULL) {
+        if (no1->matricula < no2->matricula) {
+            enfileira(f3, no1->matricula);
+            no1 = no1->prox;
+        } else {
+            enfileira(f3, no2->matricula);
+            no2 = no2->prox;
+        }
+    }
 
-    // Adiciona os elementos restantes da primeira fila (se houver)
-    while (no1 != NULL) {
-        enfileira(f3, no1->matricula);
-        no1 = no1->prox;
-    }
+    // Adiciona os elementos restantes da primeira fila (se houver)
+    while (no1 != NULL) {
+        enfileira(f3, no1->matricula);
+        no1 = no1->prox;
+    }
 
-    // Adiciona os elementos restantes da segunda fila (se houver)
-    while (no2 != NULL) {
-        enfileira(f3, no2->matricula);
-        no2 = no2->prox;
-    }
-
+    // Adiciona os elementos restantes da segunda fila (se houver)
+    while (no2 != NULL) {
+        enfileira(f3, no2->matricula);
+        no2 = no2->prox;
+    }
     return 1;
+}
+
+// --- Nova função para reverter a fila, movida para fora da função anterior ---
+int Reverse(Fila *f) {
+    if (f == NULL || filaVazia(f)) {
+        return 0; // Retorna 0 se a fila for nula ou vazia
+    }
+
+    // Declara ponteiros auxiliares para a inversão
+    No *anterior = NULL;
+    No *atual = f->frente;
+    No *proximo = NULL;
+
+    // Inverte a direção dos ponteiros
+    while (atual != NULL) {
+        proximo = atual->prox; // Guarda o próximo nó
+        atual->prox = anterior; // Inverte o ponteiro do nó atual
+        anterior = atual; // Move o ponteiro 'anterior' para o nó atual
+        atual = proximo; // Move o ponteiro 'atual' para o próximo nó
+    }
+
+    // O antigo 'frente' agora é o 'tras' e o antigo 'tras' é o 'frente'
+    f->tras = f->frente;
+    f->frente = anterior;
+
+    return 1;
 }
