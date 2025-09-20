@@ -166,3 +166,51 @@ void listarPrimeiroAviao(Fila *f) {
     }
     printf("Primeiro aviao tem id %d\n", f->frente->matricula);
 }
+
+/*
+ * Combina duas filas ordenadas (f1 e f2) em uma terceira fila (f3),
+ * mantendo a ordem crescente dos elementos.
+ *
+ * Retorna 1 se a operação for bem-sucedida, 0 caso contrário.
+ */
+int separaEFilaEmOrdem(Fila *f1, Fila *f2, Fila *f3) {
+    // Verifica se as filas de entrada e a de saída são válidas
+    if (f1 == NULL || f2 == NULL || f3 == NULL) {
+        return 0;
+    }
+
+    // Se as duas filas de origem estiverem vazias, não há o que fazer
+    if (filaVazia(f1) && filaVazia(f2)) {
+        printf("Ambas as filas estao vazias\n");
+        return 0;
+    }
+
+    // Pega os primeiros nós de cada fila
+    No *no1 = f1->frente;
+    No *no2 = f2->frente;
+
+    // Percorre as duas filas, comparando e enfileirando o menor elemento na fila de destino
+    while (no1 != NULL && no2 != NULL) {
+        if (no1->matricula < no2->matricula) {
+            enfileira(f3, no1->matricula);
+            no1 = no1->prox;
+        } else {
+            enfileira(f3, no2->matricula);
+            no2 = no2->prox;
+        }
+    }
+
+    // Adiciona os elementos restantes da primeira fila (se houver)
+    while (no1 != NULL) {
+        enfileira(f3, no1->matricula);
+        no1 = no1->prox;
+    }
+
+    // Adiciona os elementos restantes da segunda fila (se houver)
+    while (no2 != NULL) {
+        enfileira(f3, no2->matricula);
+        no2 = no2->prox;
+    }
+
+    return 1;
+}
