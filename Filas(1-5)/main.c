@@ -49,5 +49,31 @@ int main() {
     autorizarDecolagem(&f1);
     listarAvioes(&f1);
 
+    printf("\n--- Testando a funcao de combinacao de filas ---\n");
+    Fila fA, fB, fC;
+    inicializaFila(&fA);
+    inicializaFila(&fB);
+    inicializaFila(&fC);
+
+    // Preenchendo fA e fB em ordem crescente
+    enfileira(&fA, 10);
+    enfileira(&fA, 30);
+    enfileira(&fA, 50);
+
+    enfileira(&fB, 20);
+    enfileira(&fB, 40);
+    enfileira(&fB, 60);
+
+    printf("Fila A (ordenada): ");
+    imprimeFila(&fA);
+    printf("Fila B (ordenada): ");
+    imprimeFila(&fB);
+
+    // Chamando a nova funcao para combinar fA e fB em fC
+    separaEFilaEmOrdem(&fA, &fB, &fC);
+
+    printf("Fila C (combinada e ordenada): ");
+    imprimeFila(&fC);
+
     return 0;
 }
