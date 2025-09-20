@@ -46,6 +46,7 @@ int filaVazia(Fila *f);
 void enfileira(Fila *f, int mat);
 int desenfileira(Fila *f, int *mat);
 void imprimeFila(Fila *f);
+int Reverse(Fila *f);
 
 int separa(Fila *f1, Fila *f2, int n);
 
