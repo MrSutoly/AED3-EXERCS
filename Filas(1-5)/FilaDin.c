@@ -214,7 +214,7 @@ int separaEFilaEmOrdem(Fila *f1, Fila *f2, Fila *f3) {
     return 1;
 }
 
-// --- Nova função para reverter a fila, movida para fora da função anterior ---
+
 int Reverse(Fila *f) {
     if (f == NULL || filaVazia(f)) {
         return 0; // Retorna 0 se a fila for nula ou vazia
