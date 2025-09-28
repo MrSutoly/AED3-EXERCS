@@ -322,3 +322,171 @@ void dell_num_list(Listt* li, int n) {
         dell_num_list(&(*li)->prox, n);
     }
 }
+
+int Concatenate_List(Lista* list1, Lista* list2) {
+
+    if (list1 == NULL || list2 == NULL) {
+        return 0;
+    }
+
+    if (*list2 == NULL) {
+        return 1;
+    }
+
+    if (*list1 == NULL) {
+        *list1 = *list2;
+        *list2 = NULL;
+        return 1;
+    }
+
+
+    struct elemento *lastElement = *list1;
+    while (lastElement->prox != NULL) {
+        lastElement = lastElement->prox;
+    }
+
+    lastElement->prox = *list2;
+    *list2 = NULL;
+
+    return 1;
+}
+
+void remove_duplicatas(Lista* li) {
+    if (li == NULL || *li == NULL)
+        return;
+
+    struct elemento *atual = *li;
+
+    while (atual != NULL) {
+        struct elemento *anterior = atual;
+        struct elemento *verificador = atual->prox;
+
+        while (verificador != NULL) {
+            if (verificador->dados.matricula == atual->dados.matricula) {
+                // Encontramos uma duplicata. Removemos o nó 'verificador'.
+                struct elemento *no_a_remover = verificador;
+                anterior->prox = verificador->prox;
+                verificador = verificador->prox; // Avançamos 'verificador' sem avançar 'anterior'
+                free(no_a_remover); // Libera a memória do nó removido
+            } else {
+                // Se não for duplicata, avançamos ambos os ponteiros.
+                anterior = verificador;
+                verificador = verificador->prox;
+            }
+        }
+
+        atual = atual->prox;
+    }
+}
+
+void fusao_listas_ordenadas(Lista* l1, Lista* l2) {
+    if (l1 == NULL || l2 == NULL) return;
+
+    // Se a segunda lista está vazia, não há o que fundir.
+    if (*l2 == NULL) return;
+
+    // Se a primeira lista está vazia, simplesmente movemos l2 para l1.
+    if (*l1 == NULL) {
+        *l1 = *l2;
+        *l2 = NULL;
+        return;
+    }
+
+    struct elemento *p1 = *l1;
+    struct elemento *p2 = *l2;
+    struct elemento *nova_cabeca;
+
+    // Define o primeiro nó da nova lista fundida.
+    // O ponteiro da lista de origem é avançado.
+    if (p1->dados.matricula <= p2->dados.matricula) {
+        nova_cabeca = p1;
+        p1 = p1->prox;
+    } else {
+        nova_cabeca = p2;
+        p2 = p2->prox;
+    }
+
+    // O ponteiro 'l1' agora aponta para a nova lista fundida.
+    *l1 = nova_cabeca;
+
+    // O ponteiro 'atual' irá construir a lista.
+    struct elemento *atual = nova_cabeca;
+
+    // Percorre as duas listas, religando os nós.
+    while (p1 != NULL && p2 != NULL) {
+        if (p1->dados.matricula <= p2->dados.matricula) {
+            atual->prox = p1;
+            p1 = p1->prox;
+        } else {
+            atual->prox = p2;
+            p2 = p2->prox;
+        }
+        atual = atual->prox;
+    }
+
+    // Anexa o restante dos nós que ainda não foram religados.
+    if (p1 != NULL) {
+        atual->prox = p1;
+    } else if (p2 != NULL) {
+        atual->prox = p2;
+    }
+
+    // A segunda lista de origem agora está vazia.
+    *l2 = NULL;
+}
+
+int Troca(Lista* pLista, struct elemento* p) {
+    // Casos de erro: lista inválida, ponteiros nulos ou o último elemento
+    if (pLista == NULL || *pLista == NULL || p == NULL || p->prox == NULL) {
+        return 0;
+    }
+
+    struct elemento* p_seguinte = p->prox;
+
+    // CASO 1: O nó 'p' é o primeiro da lista.
+    if (*pLista == p) {
+        // O novo primeiro nó é 'p_seguinte'
+        *pLista = p_seguinte;
+        // O que vem depois de 'p' agora é o que vinha depois de 'p_seguinte'
+        p->prox = p_seguinte->prox;
+        // O que vem depois de 'p_seguinte' agora é 'p'
+        p_seguinte->prox = p;
+        return 1;
+    }
+
+    // CASO 2: O nó 'p' está no meio da lista.
+    struct elemento* p_anterior = *pLista;
+    // Encontra o nó que vem antes de 'p'
+    while (p_anterior->prox != p) {
+        // Se 'p_anterior' chegar ao fim da lista sem encontrar 'p', algo está errado.
+        if (p_anterior->prox == NULL) {
+            return 0;
+        }
+        p_anterior = p_anterior->prox;
+    }
+
+    // O próximo de 'p_anterior' agora é 'p_seguinte'
+    p_anterior->prox = p_seguinte;
+    // O próximo de 'p' agora é o que vinha depois de 'p_seguinte'
+    p->prox = p_seguinte->prox;
+    // O próximo de 'p_seguinte' agora é 'p'
+    p_seguinte->prox = p;
+
+    return 1;
+}
+
+
+
+struct elemento* busca_por_matricula(Lista *li, int mat) {
+    if (li == NULL || (*li) == NULL) {
+        return NULL;
+    }
+
+    struct elemento *no_atual = *li;
+
+    while (no_atual != NULL && no_atual->dados.matricula != mat) {
+        no_atual = no_atual->prox;
+    }
+
+    return no_atual;
+}
