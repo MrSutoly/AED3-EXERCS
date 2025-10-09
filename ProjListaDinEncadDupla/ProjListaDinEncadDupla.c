@@ -497,3 +497,34 @@ int desenfileirar(noDesc *n, int *elem) {
 
     return 1; 
 }
+
+void printListForward(List* list) {
+    if (list == NULL || *list == NULL) {
+        printf("Lista vazia!\n");
+        return;
+    }
+
+    Element* aux = *list;
+    printf("Percorrendo Lista\n");
+
+    do {
+        printf("ID: %d | Nome: %s\n", aux->data.id, aux->data.name);
+        aux = aux->next;
+    } while (aux != *list);
+
+}
+
+void printFila(noDesc *n) {
+    if (n == NULL || n->ini == NULL) {
+        printf("Fila vazia!\n");
+        return;
+    }
+    Fila* aux = n->ini;
+
+    printf("Print Da Fila:\n");
+    while (aux != NULL) {
+        printf("%d ", aux->info);
+        aux = aux->prox;
+    }
+}
+

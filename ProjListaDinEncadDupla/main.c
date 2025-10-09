@@ -46,19 +46,23 @@ int main() {
 
     free_List(li);
 
-    List list = NULL;
+    printf("\n");
 
-    insert_end_List_Circ(&list, a[2]);
-    insert_end_List_Circ(&list, a[3]);
-    insert_begin_List_Circ(&list, a[1]);
+    List* list = createList();
 
-    print_circular_List(&list);
+    insert_end_List_Circ(list, a[2]);
+    insert_end_List_Circ(list, a[3]);
+    insert_begin_List_Circ(list, a[1]);
 
-    remove_begin_List_Circ(&list);
-    print_circular_List(&list);
+    printListForward(list);
 
-    remove_end_List_Circ(&list);
-    print_circular_List(&list);
+    remove_begin_List_Circ(list);
+    printListForward(list);
+
+    remove_end_List_Circ(list);
+    printListForward(list);
+
+    printf("\n");
 
     noDesc fila;
     fila.ini = NULL;
@@ -67,11 +71,13 @@ int main() {
     enfileirar(&fila, 10);
     enfileirar(&fila, 20);
     enfileirar(&fila, 30);
-    print_List(&list);
 
+    printFila(&fila);
+    printf("\n");
     int removido;
     desenfileirar(&fila, &removido);
     printf("Removido: %d\n", removido);
-    print_List(&list);
+    printFila(&fila);
+
     return 0;
 }

@@ -63,5 +63,7 @@ void print_circular_List(List* list);
 
 int enfileirar(noDesc *n, int elem);
 int desenfileirar(noDesc *n, int *elem);
+void printListForward(List* list);
+void printFila(noDesc *n);
 
 #endif //PROJLISTADINENCADDUPLA_H
