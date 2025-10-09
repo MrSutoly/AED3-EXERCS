@@ -338,4 +338,162 @@ int count_grade_List(List* list, float grade1) {
  * afinal, se avançasse o *list até o final, não teria como voltar pois ele estaria travado no NULL
  */
 
+ 
+int insert_begin_List_Circ(List* list, Student student) {
+    Element* newNode = (Element*) malloc(sizeof(Element));
+    if (newNode == NULL) {
+        return 0; 
+    }
+    newNode->data = student;
 
+    if (*list == NULL) {
+        *list = newNode;
+        newNode->next = newNode;
+        newNode->previous = newNode;
+    } else {
+        Element* head = *list;
+        Element* last = head->previous; 
+
+       
+        newNode->next = head;
+        newNode->previous = last;
+
+        
+        last->next = newNode;
+        head->previous = newNode;
+        *list = newNode;
+    }
+    return 1; 
+}
+
+
+int insert_end_List_Circ(List* list, Student student) {
+
+    Element* newNode = (Element*) malloc(sizeof(Element));
+    if (newNode == NULL) {
+        return 0; // Falha
+    }
+    newNode->data = student;
+
+    if (*list == NULL) {
+        *list = newNode;
+        newNode->next = newNode;
+        newNode->previous = newNode;
+    } else {
+        Element* head = *list;
+        Element* last = head->previous; 
+
+        newNode->next = head;
+        newNode->previous = last;
+
+        last->next = newNode;
+        head->previous = newNode;
+    }
+    return 1; 
+}
+
+int remove_begin_List_Circ(List* list) {
+    if (*list == NULL) {
+        return 0;
+    }
+
+    Element* nodeToRemove = *list;
+
+    if (nodeToRemove->next == nodeToRemove) {
+        *list = NULL; 
+    } else {
+        Element* newHead = nodeToRemove->next;
+        Element* last = nodeToRemove->previous;
+
+        last->next = newHead;
+        newHead->previous = last;
+
+        *list = newHead;
+    }
+
+    free(nodeToRemove); 
+    return 1; 
+}
+
+
+int remove_end_List_Circ(List* list) {
+    if (*list == NULL) {
+        return 0;
+    }
+
+    Element* head = *list;
+    Element* nodeToRemove = head->previous; 
+
+    if (nodeToRemove == head) { 
+        *list = NULL;
+    } else {
+
+        Element* newLast = nodeToRemove->previous; 
+
+        newLast->next = head;
+        head->previous = newLast;
+    }
+
+    free(nodeToRemove); 
+    return 1; 
+}
+
+void print_circular_List(List* list) {
+    if (list == NULL || *list == NULL) {
+        printf("Lista Vazia!\n");
+        return;
+    }
+
+    Element* aux = *list; 
+
+    printf("Print Lista Circular\n");
+    do {
+        printf("ID: %d, Nome: %s\n", aux->data.id, aux->data.name);
+        aux = aux->next;
+    } while (aux != *list); 
+}
+
+//5
+
+int enfileirar(noDesc *n, int elem) {
+    Fila* novo = (Fila*) malloc(sizeof(Fila));
+    if (novo == NULL) {
+        return 0;
+    }
+
+    novo->info = elem;
+    novo->prox = NULL; 
+
+    if (n->ini == NULL) {
+        n->ini = novo;
+        n->fim = novo;
+        novo->ant = NULL; 
+    } else {
+        novo->ant = n->fim;   
+        n->fim->prox = novo;  
+        n->fim = novo;        
+    }
+
+    return 1; 
+}
+
+int desenfileirar(noDesc *n, int *elem) {
+    if (n->ini == NULL) {
+        return 0; 
+    }
+
+    Fila* noRemover = n->ini;
+
+    *elem = noRemover->info;
+
+    n->ini = noRemover->prox;
+
+    if (n->ini == NULL) {
+        n->fim = NULL;
+    } else {
+        n->ini->ant = NULL;
+    }
+    free(noRemover);
+
+    return 1; 
+}
