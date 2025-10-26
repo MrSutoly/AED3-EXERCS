@@ -1,5 +1,5 @@
-📝 Documentação e Implementação: Matriz Dinâmica Encadeada
-Este trabalho foi desenvolvido para a disciplina de Estrutura de Dados III, tendo como objetivo a implementação de uma Matriz Dinâmica baseada em Listas Encadeadas Ortogonais (Cross-Linked Lists).
+<h1>📝 Documentação e Implementação: Matriz Dinâmica Encadeada
+Este trabalho foi desenvolvido para a disciplina de Estrutura de Dados III, tendo como objetivo a implementação de uma Matriz Dinâmica baseada em Listas Encadeadas Ortogonais (Cross-Linked Lists).</h1>
 
   ### Funções Base (João Pedro)
 criarNo() → Cria um nó vazio da matriz com todos os ponteiros (cima, baixo, esquerda, direita) nulos.
