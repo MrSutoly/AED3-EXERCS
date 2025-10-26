@@ -1,5 +1,5 @@
-#ifndef TRABALHO1AED3_MATRIZ_H
-#define TRABALHO1AED3_MATRIZ_H
+#ifndef TRABALHO1_MATRIZ_H
+#define TRABALHO1_MATRIZ_H
 
 #include <stdlib.h>
 
@@ -25,5 +25,13 @@ void inserirValor(Matriz *m, int x, int y, int valor);
 No* buscarValor(Matriz *m, int valor);
 void imprimirVizinhos(Matriz *m, int x, int y);
 void imprimirMatriz(Matriz *m);
+int addRow(Matriz *matriz, int linha);
+int addColumn(Matriz *matriz, int coluna);
+int removeRow(Matriz *matriz, int linha);
+int removeColumn(Matriz *matriz, int coluna);
+void transporMatriz(Matriz *m);
+void rotacionar90GrausAntiHoraria(Matriz *m);
+void rotacionar90GrausHoraria(Matriz *m);
+int lerValor(Matriz *m, int linha, int coluna);
 
-#endif //TRABALHO1AED3_MATRIZ_H
+#endif //TRABALHO1_MATRIZ_H
