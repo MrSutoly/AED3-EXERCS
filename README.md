@@ -20,11 +20,13 @@ imprimirVizinhos(m, x, y) → Imprime os valores dos vizinhos de um nó (cima, b
 
 buscarValor(m, valor) → Retorna o primeiro nó que contém o valor informado.
 
-  Funções Extra (João Pedro)
+ ### Funções Extra (João Pedro)
 matrizSimetrica(m) → Verifica se a matriz é quadrada e simétrica, comparando cada elemento com seu “espelho” (i,j) ↔ (j,i).
 
+  ### Dificuldades no inicio
+Minha maior dificuldade foi na parte de compreender oque foi pedido, conectar os Nós mas depois de uma vez que essa dificuldade foi superada o resto ficou fácil.
 
-  Funções Extra (Pedro Luca)
+  ### Funções Extra (Pedro Luca)
 Adicionar/Remover Linha: Permite o crescimento/encolhimento vertical da matriz; a remoção reencadeia os nós adjacentes (cima e baixo) para pular a linha removida.
 
 Adicionar/Remover Coluna: Permite o crescimento/encolhimento horizontal; a remoção reencadeia os nós adjacentes (esquerda e direita) para pular a coluna removida.
@@ -33,7 +35,7 @@ Transpor Matriz: Realizada in-place, trocando os ponteiros direita pelos baixo e
 
 Girar 90 Graus (Horário e Anti-Horário): Realizada in-place, remapeando ciclicamente os quatro ponteiros (cima, baixo, esquerda, direita) e atualizando o ponto de início (inicio) e as dimensões.
 
-Dificuldades na Rotação 90° Horária
+  ### Dificuldades na Rotação 90° Horária
 
 O desafio primário foi o mapeamento lógico dos ponteiros. Inicialmente, a lógica implementada resultava, inadvertidamente, na rotação anti-horária. A correção exigiu o entendimento preciso de que o novo nó superior esquerdo da
 matriz rotacionada (o novo m->inicio) é o nó que, na matriz original, estava na última linha e primeira coluna. 
