@@ -18,14 +18,11 @@ void limparTela() {
 void esperarEnter() {
     printf("\nPressione ENTER para continuar...");
 
-    // **SOLUÇÃO FINAL:**
-    // 1. Limpa qualquer lixo que possa ter restado no buffer do scanf anterior.
-    // Isso garante que a próxima leitura não consuma um '\n' antigo.
+    
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {}
 
-    // 2. Agora, lê um novo caractere, forçando o programa a esperar a entrada do usuário.
-    // Isto garante a pausa.
+    
     getchar();
 }
 
@@ -70,7 +67,7 @@ int main() {
     printf("Digite o número inicial de colunas: ");
     if (scanf("%d", &colunas) != 1 || colunas <= 0) { colunas = 3; }
 
-    // LIMPEZA CRÍTICA: Consome o ENTER após a última leitura de coluna
+    
     while ((ch = getchar()) != '\n' && ch != EOF);
 
     m = alocarMatriz(linhas, colunas);
