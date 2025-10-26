@@ -1,5 +1,5 @@
 📝 Documentação e Implementação: Matriz Dinâmica Encadeada
-Este trabalho foi desenvolvido para a disciplina de Estrutura de Dados II, tendo como objetivo a implementação de uma Matriz Dinâmica baseada em Listas Encadeadas Ortogonais (Cross-Linked Lists).
+Este trabalho foi desenvolvido para a disciplina de Estrutura de Dados III, tendo como objetivo a implementação de uma Matriz Dinâmica baseada em Listas Encadeadas Ortogonais (Cross-Linked Lists).
 
 
 
