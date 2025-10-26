@@ -162,9 +162,7 @@ No* criarNovoNo() {
 }
 
 
-/* ************************************************** */
-/* FUNÇÕES DE ADIÇÃO (Linhas e Colunas)                 */
-/* ************************************************* */
+
 
 int addRow(Matriz *matriz, int linha) {
     // 1. Verificações de entrada e ajuste do índice 'linha' (1-based)
@@ -319,9 +317,7 @@ int addColumn(Matriz *matriz, int coluna) {
     return 1;
 }
 
-/* **************************************************** */
-/* FUNÇÕES DE REMOÇÃO (Linhas e Colunas)                */
-/* **************************************************** */
+
 
 int removeRow(Matriz *matriz, int linha) {
     // 1. Verificações de entrada e ajuste do índice 'linha' (1-based)
