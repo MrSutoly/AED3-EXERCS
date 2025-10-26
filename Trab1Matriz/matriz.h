@@ -33,5 +33,6 @@ void transporMatriz(Matriz *m);
 void rotacionar90GrausAntiHoraria(Matriz *m);
 void rotacionar90GrausHoraria(Matriz *m);
 int lerValor(Matriz *m, int linha, int coluna);
+int matrizSimetrica(Matriz *m);
 
 #endif //TRABALHO1_MATRIZ_H

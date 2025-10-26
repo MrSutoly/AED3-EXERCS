@@ -145,23 +145,6 @@ void imprimirMatriz(Matriz *m) {
         linha = linha->baixo;
     }
 }
-
-No* criarNovoNo() {
-    No *novo = (No*)malloc(sizeof(No));
-    if (novo == NULL) {
-        perror("Erro de alocação de memória");
-        exit(EXIT_FAILURE);
-    }
-    // Inicializa o valor e os ponteiros conforme o seu 'criarNo' original
-    novo->valor = 0;
-    novo->direita = NULL;
-    novo->esquerda = NULL;
-    novo->cima = NULL;
-    novo->baixo = NULL;
-    return novo;
-}
-
-
 /* ************************************************** */
 /* FUNÇÕES DE ADIÇÃO (Linhas e Colunas)                 */
 /* ************************************************* */
@@ -205,7 +188,7 @@ int addRow(Matriz *matriz, int linha) {
     No *novoNoAnterior = NULL; // Rastreia o nó anterior na nova linha
 
     for (int j = 0; j < matriz->colunas; j++) {
-        No *novoNo = criarNovoNo();
+        No *novoNo = criarNo();
 
         // 3a. Encadeamento Horizontal (esquerda/direita)
         if (novoNoAnterior != NULL) {
@@ -281,7 +264,7 @@ int addColumn(Matriz *matriz, int coluna) {
     No *novoNoAcima = NULL; // Rastreia o nó anterior (acima) na nova coluna
 
     for (int i = 0; i < matriz->linhas; i++) {
-        No *novoNo = criarNovoNo();
+        No *novoNo = criarNo();
 
         // 3a. Encadeamento Vertical (cima/baixo)
         if (novoNoAcima != NULL) {
@@ -630,3 +613,27 @@ int lerValor(Matriz *m, int linha, int coluna) {
 
     return -99999; // Nó não encontrado (erro de lógica)
 }
+
+int matrizSimetrica(Matriz *m) {
+    // verifica se a matriz existe e se é quadrada
+    if (m == NULL || m->inicio == NULL || m->linhas != m->colunas) {
+        return 0; // não é simétrica
+    }
+
+    // percorre todas as posições da matriz
+    for (int i = 0; i < m->linhas; i++) {
+        for (int j = 0; j < m->colunas; j++) {
+            // lê o valor em (i,j)
+            int a = lerValor(m, i, j);
+            // lê o valor em (j,i) — o “espelho”
+            int b = lerValor(m, j, i);
+
+            // se encontrar uma diferença, já sabe que não é simétrica
+            if (a != b) return 0;
+        }
+    }
+
+    // se passou por todos os elementos sem diferença, é simétrica
+    return 1;
+}
+
