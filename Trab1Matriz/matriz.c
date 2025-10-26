@@ -145,9 +145,24 @@ void imprimirMatriz(Matriz *m) {
         linha = linha->baixo;
     }
 }
-/* ************************************************** */
-/* FUNÇÕES DE ADIÇÃO (Linhas e Colunas)                 */
-/* ************************************************* */
+
+No* criarNovoNo() {
+    No *novo = (No*)malloc(sizeof(No));
+    if (novo == NULL) {
+        perror("Erro de alocação de memória");
+        exit(EXIT_FAILURE);
+    }
+    // Inicializa o valor e os ponteiros conforme o seu 'criarNo' original
+    novo->valor = 0;
+    novo->direita = NULL;
+    novo->esquerda = NULL;
+    novo->cima = NULL;
+    novo->baixo = NULL;
+    return novo;
+}
+
+
+
 
 int addRow(Matriz *matriz, int linha) {
     // 1. Verificações de entrada e ajuste do índice 'linha' (1-based)
@@ -302,9 +317,7 @@ int addColumn(Matriz *matriz, int coluna) {
     return 1;
 }
 
-/* **************************************************** */
-/* FUNÇÕES DE REMOÇÃO (Linhas e Colunas)                */
-/* **************************************************** */
+
 
 int removeRow(Matriz *matriz, int linha) {
     // 1. Verificações de entrada e ajuste do índice 'linha' (1-based)
