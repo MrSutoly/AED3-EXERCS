@@ -1,8 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 #include "ArvBin.h"
 
 int main() {
+#ifdef _WIN32
+    system("chcp 65001 > nul");
+#endif
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+
+#ifdef _WIN32
+    system("cls");
+#else
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+#endif
+
 
     int dados_analise[8] = {50, 100, 30, 20, 40, 45, 35, 37};
     int quant_analise = 8;
@@ -68,5 +80,41 @@ int main() {
     freeBinaryTree(tree2);
     freeBinaryTree(tree3);
 
+    BinaryTree *tree = createBinaryTree();
+
+    insertBinaryTree(tree, 'M');
+    insertBinaryTree(tree, 'F');
+    insertBinaryTree(tree, 'S');
+    insertBinaryTree(tree, 'D');
+    insertBinaryTree(tree, 'J');
+    insertBinaryTree(tree, 'P');
+    insertBinaryTree(tree, 'U');
+    insertBinaryTree(tree, 'A');
+    insertBinaryTree(tree, 'E');
+    insertBinaryTree(tree, 'H');
+    insertBinaryTree(tree, 'Q');
+    insertBinaryTree(tree, 'T');
+    insertBinaryTree(tree, 'W');
+    insertBinaryTree(tree, 'K');
+
+    printf("\nÁrvore em ordem:\n");
+    printTreeAsChar(tree);
+
+    ExprNode *root = buildExpressionTree();
+
+    printf("\nInfixa:   ");
+    printInfix(root);
+
+    printf("\nPrefixa:  ");
+    printPrefix(root);
+
+    printf("\nPosfixa:  ");
+    printPostfix(root);
+
+    printf("\n\nResultado da expressão: %d\n", evalExpressionTree(root));
+
+
+    freeBinaryTree(root);
+    freeBinaryTree(tree);
     return 0;
 }

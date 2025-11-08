@@ -15,6 +15,14 @@ typedef struct element{
 
 typedef Element *BinaryTree;
 
+
+typedef struct expr {
+    char data;
+    struct expr *left;
+    struct expr *right;
+} ExprNode;
+
+
 BinaryTree* createBinaryTree();
 void freeElement(Element* element);
 void freeBinaryTree(BinaryTree *tree);
@@ -34,5 +42,15 @@ void printBinaryTree(BinaryTree *tree);
 int countAppearancesBinaryTree(BinaryTree *tree, int data);
 void printLeafsDecrescent(BinaryTree *tree);
 int isEqualBinaryTree(BinaryTree *tree1, BinaryTree *tree2);
+
+void removeEvenValues(BinaryTree *tree);
+int areSimilarTrees(BinaryTree *tree1, BinaryTree *tree2);
+void printTreeAsChar(BinaryTree *tree);
+
+ExprNode* buildExpressionTree();
+int evalExpressionTree(ExprNode *root);
+void printInfix(ExprNode *root);
+void printPrefix(ExprNode *root);
+void printPostfix(ExprNode *root);
 
 #endif //ARVBIN_H

@@ -39,7 +39,7 @@ void exibirMenu() {
     printf("2. Adicionar Coluna\n");
     printf("3. Remover Linha\n");
     printf("4. Remover Coluna\n");
-    printf("5. Transpor Matriz (In-Place)\n");
+    printf("5. Transpor Matriz \n");
     printf("6. Rotacionar 90 Graus Horária\n");
     printf("7. Rotacionar 90 Graus Anti-Horária\n");
     printf("8. Inserir/Atualizar Valor (Linha, Coluna, Valor)\n");

@@ -348,3 +348,111 @@ int isEqualBinaryTree(BinaryTree *tree1, BinaryTree *tree2) {
 
 /* a função verifica para a árvore e depois subárvores os casos que fariam elas
  * diferentes, caso n ache nada, ela passa e sai como igual, retornando 1. */
+
+void removeEvenValues(BinaryTree *tree){
+    if (tree == NULL || *tree == NULL) {
+        return;
+    }
+
+    removeEvenValues(&(*tree)->left);
+    removeEvenValues(&(*tree)->right);
+
+    if ((*tree)->data % 2 == 0) {
+        removeBinaryTree(tree, (*tree)->data);
+    }
+}
+
+int areSimilarTrees(BinaryTree *tree1, BinaryTree *tree2){
+
+    if (isEmptyBinaryTree(tree1) && isEmptyBinaryTree(tree2)) {
+        return 1;
+    }
+
+    if (isEmptyBinaryTree(tree1) || isEmptyBinaryTree(tree2)) {
+        return 0;
+    }
+
+    return areSimilarTrees(&(*tree1)->left, &(*tree2)->left) &&
+           areSimilarTrees(&(*tree1)->right, &(*tree2)->right);
+}
+
+void printTreeAsChar(BinaryTree *tree){
+    if (tree == NULL || *tree == NULL){
+        return;
+    }
+    printTreeAsChar(&(*tree)->left);
+    printf("%c ", (*tree)->data);
+    printTreeAsChar(&(*tree)->right);
+}
+
+ExprNode* createNode(char data) {
+    ExprNode *node = (ExprNode*) malloc(sizeof(ExprNode));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+ExprNode* buildExpressionTree(){
+
+    ExprNode *nodePlus = createNode('+');
+    ExprNode *nodeTimes = createNode('*');
+    ExprNode *nodeMinus1 = createNode('-');
+    ExprNode *nodePlus2 = createNode('+');
+
+    nodePlus->left = nodeTimes;
+    nodePlus->right = createNode('5');
+
+    nodeTimes->left = nodeMinus1;
+    nodeTimes->right = nodePlus2;
+
+    nodeMinus1->left = createNode('6');
+    nodeMinus1->right = createNode('3');
+
+    nodePlus2->left = createNode('4');
+    nodePlus2->right = createNode('1');
+
+    return nodePlus;
+}
+
+int evalExpressionTree(ExprNode *root){
+
+    if (root == NULL) return 0;
+
+    if (root->left == NULL && root->right == NULL) return root->data - '0';
+
+    int leftValue = evalExpressionTree(root->left);
+    int rightValue = evalExpressionTree(root->right);
+
+    switch (root->data) {
+        case '+': return leftValue + rightValue;
+        case '-': return leftValue - rightValue;
+        case '*': return leftValue * rightValue;
+        case '/': return leftValue / rightValue;
+    }
+
+    return 0;
+}
+
+void printInfix(ExprNode *root){
+    if (root == NULL) return;
+    printf("(");
+    printInfix(root->left);
+    printf("%c", root->data);
+    printInfix(root->right);
+    printf(")");
+}
+
+void printPrefix(ExprNode *root){
+    if (root == NULL) return;
+    printf("%c", root->data);
+    printPrefix(root->left);
+    printPrefix(root->right);
+}
+
+void printPostfix(ExprNode *root){
+    if (root == NULL) return;
+    printPostfix(root->left);
+    printPostfix(root->right);
+    printf("%c", root->data);
+}

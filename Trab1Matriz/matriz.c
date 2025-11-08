@@ -18,8 +18,9 @@ Matriz* alocarMatriz(int linhas, int colunas) {
     m->colunas = colunas;
     m->inicio = NULL;
 
-    if (linhas <= 0 || colunas <= 0)
+    if (linhas <= 0 || colunas <= 0) {
         return m;
+    }
 
     No *linhaAnterior = NULL;
     No *linhaAtual = NULL;
@@ -60,8 +61,7 @@ Matriz* alocarMatriz(int linhas, int colunas) {
 }
 
 void desalocarMatriz(Matriz *m) {
-    if (m == NULL || m->inicio == NULL)
-        return;
+    if (m == NULL || m->inicio == NULL) return;
 
     No *linha = m->inicio;
     while (linha != NULL) {
@@ -82,11 +82,12 @@ No* acessarPosicao(Matriz *m, int x, int y) {
         return NULL;
 
     No *atual = m->inicio;
-    for (int i = 0; i < x; i++)
+    for (int i = 0; i < x; i++) {
         atual = atual->baixo;
-    for (int j = 0; j < y; j++)
+    }
+    for (int j = 0; j < y; j++) {
         atual = atual->direita;
-
+    }
     return atual;
 }
 
@@ -145,24 +146,6 @@ void imprimirMatriz(Matriz *m) {
         linha = linha->baixo;
     }
 }
-
-No* criarNovoNo() {
-    No *novo = (No*)malloc(sizeof(No));
-    if (novo == NULL) {
-        perror("Erro de alocação de memória");
-        exit(EXIT_FAILURE);
-    }
-    // Inicializa o valor e os ponteiros conforme o seu 'criarNo' original
-    novo->valor = 0;
-    novo->direita = NULL;
-    novo->esquerda = NULL;
-    novo->cima = NULL;
-    novo->baixo = NULL;
-    return novo;
-}
-
-
-
 
 int addRow(Matriz *matriz, int linha) {
     // 1. Verificações de entrada e ajuste do índice 'linha' (1-based)
